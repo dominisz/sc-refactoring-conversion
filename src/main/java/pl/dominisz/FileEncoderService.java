@@ -5,9 +5,11 @@ public class FileEncoderService {
     private static final Logger log = LoggerFactory.getLogger(FileEncoderService.class);
 
     private final EmailClient emailClient;
+    private final FileEncoder fileEncoder;
 
-    public FileEncoderService(EmailClient emailClient) {
+    public FileEncoderService(EmailClient emailClient, FileEncoder fileEncoder) {
         this.emailClient = emailClient;
+        this.fileEncoder = fileEncoder;
     }
 
     public Result encode(String sourceFilename, String destinationFilename) {
@@ -16,10 +18,7 @@ public class FileEncoderService {
 
         Result res = new Result();
 
-        FileEncoder fe = new FileEncoder();
-
-        //Encode file f1 and write result to file f2.
-        fe.encode(sourceFilename, destinationFilename, res);
+        fileEncoder.encode(sourceFilename, destinationFilename, res);
 
         //If file encoding took too long then send email message
         if (res.getInf().get(0).getCode() != -1) {
