@@ -5,7 +5,7 @@ public class EmailClient {
 
     }
 
-    public void sendFailedMessage() {
+    public void sendFailedMessage(String f1) {
 
     }
 }
