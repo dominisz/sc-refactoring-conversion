@@ -16,12 +16,10 @@ public class FileEncoderService {
 
         log.info("Start encoding " + sourceFilename);
 
-        Result res = new Result();
-
-        fileEncoder.encode(sourceFilename, destinationFilename, res);
+        Result res = fileEncoder.encode(sourceFilename, destinationFilename);
 
         //If file encoding took too long then send email message
-        if (res.getInf().get(0).getCode() != -1) {
+        if (res.isSuccessful()) {
             log.info("Stop encoding file " + sourceFilename);
         } else {
             emailClient.sendFailedMessage(sourceFilename);
